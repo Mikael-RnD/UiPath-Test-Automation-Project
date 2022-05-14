@@ -28,6 +28,36 @@ jobs:
       - name: Setup UiPath CLI
         uses: Mikael-RnD/setup-uipath@v1.0.0
 
+      - name: UiPath Pack
+        uses: Mikael-RnD/UiPath-Pack@main
+        with:
+          orchestratorUrl: "https://cloud.uipath.com/"
+          orchestratorTenant: ${{ secrets.UIPATH_TENANT }}
+          orchestratorFolder: Shared
+          orchestratorApplicationId: ${{ secrets.UIPATH_APP_ID }}
+          orchestratorApplicationSecret: ${{ secrets.UIPATH_APP_SECRET }}
+          orchestratorApplicationScope: ${{ secrets.UIPATH_APP_SCOPE }}
+          orchestratorLogicalName: ${{ secrets.UIPATH_ORGANIZATION_ID }}
+          projectVersion: '1.0.0'
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ${{ github.workspace }}/packages
+          if-no-files-found: error
+          retention-days: 90
+
+  tests:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          # Artifact name
+          name: artifact # optional
+          # Destination path
+          path: ${{github.workspace}} # optional
+          
       - name: Run UiPath Tests
         uses: Mikael-RnD/UiPath-Test@main
         with:
