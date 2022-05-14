@@ -40,7 +40,7 @@ jobs:
           orchestratorLogicalName: ${{ secrets.UIPATH_ORGANIZATION_ID }}
           projectVersion: '1.0.0'
      
-      - run: uipcli test run "https://cloud.uipath.com/" ${{ secrets.UIPATH_TENANT }} --project_path "${{ github.workspace }}/WindowsLegacyTestAutomation/TestAutomationProject1" --accountForApp "${{ secrets.UIPATH_ORGANIZATION_ID }}" --applicationId  "${{ secrets.UIPATH_APP_ID }}" --applicationSecret "${{ secrets.UIPATH_APP_SECRET }}" --applicationScope "${{ secrets.UIPATH_APP_SCOPE }}" --organizationUnit "Shared" --language en-US
+      - run: uipcli test run "https://cloud.uipath.com/" ${{ secrets.UIPATH_TENANT }} --project_path "${{ github.workspace }}/WindowsLegacyTestAutomation/TestAutomationProject1/TestCase.xaml" --accountForApp "${{ secrets.UIPATH_ORGANIZATION_ID }}" --applicationId  "${{ secrets.UIPATH_APP_ID }}" --applicationSecret "${{ secrets.UIPATH_APP_SECRET }}" --applicationScope "${{ secrets.UIPATH_APP_SCOPE }}" --organizationUnit "Shared" --language en-US
 
       - uses: actions/upload-artifact@v3
         with:
