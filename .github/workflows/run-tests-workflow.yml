@@ -39,8 +39,18 @@ jobs:
           orchestratorApplicationScope: ${{ secrets.UIPATH_APP_SCOPE }}
           orchestratorLogicalName: ${{ secrets.UIPATH_ORGANIZATION_ID }}
           projectVersion: '1.0.0'
-     
-      - run: uipcli test run "https://cloud.uipath.com/" ${{ secrets.UIPATH_TENANT }} -P "${{ github.workspace }}/WindowsLegacyTestAutomation/TestAutomationProject1/project.json" --accountForApp "${{ secrets.UIPATH_ORGANIZATION_ID }}" --applicationId  "${{ secrets.UIPATH_APP_ID }}" --applicationSecret "${{ secrets.UIPATH_APP_SECRET }}" --applicationScope "${{ secrets.UIPATH_APP_SCOPE }}" --organizationUnit "Shared" --language en-US
+      
+      - name: Run UiPath Tests
+        uses: Mikael-RnD/UiPath-Test@main
+        with:
+          orchestratorUrl: "https://cloud.uipath.com/"
+          orchestratorTenant: ${{ secrets.UIPATH_TENANT }}
+          orchestratorFolder: Shared
+          orchestratorApplicationId: ${{ secrets.UIPATH_APP_ID }}
+          orchestratorApplicationSecret: ${{ secrets.UIPATH_APP_SECRET }}
+          orchestratorApplicationScope: ${{ secrets.UIPATH_APP_SCOPE }}
+          orchestratorLogicalName: ${{ secrets.UIPATH_ORGANIZATION_ID }}
+      # - run: uipcli test run "https://cloud.uipath.com/" ${{ secrets.UIPATH_TENANT }} -P "${{ github.workspace }}/WindowsLegacyTestAutomation/TestAutomationProject1/project.json" --accountForApp "${{ secrets.UIPATH_ORGANIZATION_ID }}" --applicationId  "${{ secrets.UIPATH_APP_ID }}" --applicationSecret "${{ secrets.UIPATH_APP_SECRET }}" --applicationScope "${{ secrets.UIPATH_APP_SCOPE }}" --organizationUnit "Shared" --language en-US
 
       - uses: actions/upload-artifact@v3
         with:
@@ -62,13 +72,4 @@ jobs:
       
       - name: Setup UiPath CLI
         uses: Mikael-RnD/setup-uipath@v1.0.0
-      - name: Run UiPath Tests
-        uses: Mikael-RnD/UiPath-Test@main
-        with:
-          orchestratorUrl: "https://cloud.uipath.com/"
-          orchestratorTenant: ${{ secrets.UIPATH_TENANT }}
-          orchestratorFolder: Shared
-          orchestratorApplicationId: ${{ secrets.UIPATH_APP_ID }}
-          orchestratorApplicationSecret: ${{ secrets.UIPATH_APP_SECRET }}
-          orchestratorApplicationScope: ${{ secrets.UIPATH_APP_SCOPE }}
-          orchestratorLogicalName: ${{ secrets.UIPATH_ORGANIZATION_ID }}
+ 
