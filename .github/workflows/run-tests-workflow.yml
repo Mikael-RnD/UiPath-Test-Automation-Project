@@ -27,5 +27,14 @@ jobs:
       
       - name: Setup UiPath CLI
         uses: Mikael-RnD/setup-uipath@v1.0.0
-        
-      
+
+      - name: Run UiPath Tests
+        uses: Mikael-RnD/UiPath-Test@main
+        with:
+          orchestratorUrl: "https://cloud.uipath.com/"
+          orchestratorTenant: ${{ secrets.UIPATH_TENANT }}
+          orchestratorFolder: Shared
+          orchestratorApplicationId: ${{ secrets.UIPATH_APP_ID }}
+          orchestratorApplicationSecret: ${{ secrets.UIPATH_APP_SECRET }}
+          orchestratorApplicationScope: ${{ secrets.UIPATH_APP_SCOPE }}
+          orchestratorLogicalName: ${{ secrets.UIPATH_ORGANIZATION_ID }}
